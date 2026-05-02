@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="experts-page">
+    <h1>Наши эксперты по безопасности</h1>
+    <p>Выберите специалиста, который поможет решить вашу проблему</p>
+    
+    <div class="experts-grid full-grid">
+        {% for expert in experts %}
+        <div class="expert-card detailed">
+            <div class="expert-photo">
+                <div class="avatar-placeholder">👨‍💻</div>
+            </div>
+            <div class="expert-info">
+                <h2>{{ expert.user.get_full_name }}</h2>
+                <p class="specialty">{{ expert.get_specialty_display }}</p>
+                <p class="experience">Опыт: {{ expert.experience }} лет</p>
+                <div class="rating">Рейтинг: ⭐ {{ expert.rating }}/5.0</div>
+                <p class="bio">{{ expert.bio }}</p>
+                <div class="availability">
+                    {% if expert.is_available %}
+                        <span class="available">🟢 Доступен</span>
+                    {% else %}
+                        <span class="busy">🔴 Занят</span>
+                    {% endif %}
+                </div>
+                <a href="{% url 'request_help' %}?expert={{ expert.id }}" class="contact-expert">
+                    Запросить помощь
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

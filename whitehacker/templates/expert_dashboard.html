@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="expert-dashboard">
+    <div class="dashboard-header">
+        <h1>Мои запросы</h1>
+        <p>Здесь отображаются сообщения от пользователей, которые обратились к вам за помощью.</p>
+    </div>
+
+    {% if help_requests %}
+        <div class="request-list">
+            {% for request in help_requests %}
+                <div class="request-card">
+                    <h2>{{ request.title }}</h2>
+                    <p><strong>От:</strong> {{ request.user.get_full_name }} ({{ request.user.username }})</p>
+                    <p><strong>Срочность:</strong> {{ request.get_urgency_display }}</p>
+                    <p><strong>Статус:</strong> {{ request.get_status_display }}</p>
+                    <p>{{ request.description|linebreaks }}</p>
+                    <p class="small-text">Дата: {{ request.created_at|date:'d.m.Y H:i' }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>У вас пока нет входящих запросов. Как только пострадавший отправит сообщение, оно появится здесь.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

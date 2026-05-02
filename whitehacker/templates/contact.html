@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="contact-page">
+    <div class="contact-wrapper">
+        {% if form %}
+            <div class="contact-form-card">
+                <h1>Запросить помощь</h1>
+                <p>Оставьте запрос, и наш эксперт свяжется с вами.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-error">{{ form.non_field_errors }}</div>
+                    {% endif %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="error">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn-submit">Отправить запрос</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="contact-card">
+                <h1>Свяжитесь с нами</h1>
+                <p>Если у вас есть вопрос или вы хотите заказать услугу, воспользуйтесь этими способами связи.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Электронная почта</h3>
+                        <p>info@whitehacker.ru</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Телефон</h3>
+                        <p>+7 (999) 123-45-67</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Адрес</h3>
+                        <p>Москва, Россия</p>
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'request_help' %}" class="btn-submit">Запросить помощь</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-submit">Войти</a>
+                        <a href="{% url 'register' %}" class="btn-submit">Зарегистрироваться</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Вход для специалиста</h2>
+        <p>Авторизуйтесь как эксперт, чтобы просматривать и отвечать на запросы.</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn-submit">Войти как специалист</button>
+        </form>
+        <div class="auth-links">
+            <a href="{% url 'login' %}">Обычный вход</a>
+            <a href="{% url 'register' %}">Регистрация</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhiteHacker - Защита от киберугроз</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">🛡️ WhiteHacker</a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/experts/">Эксперты</a></li>
+            <li><a href="/contact/">Связаться</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/request-help/">Запросить помощь</a></li>
+                {% if is_expert %}
+                    <li><a href="{% url 'expert_dashboard' %}">Мои запросы</a></li>
+                {% endif %}
+                {% if user.is_staff %}
+                    <li><a href="{% url 'admin_dashboard' %}">Админка</a></li>
+                {% endif %}
+                <li><a href="/logout/" class="btn-logout">Выйти</a></li>
+            {% else %}
+                <li><a href="/login/" class="btn-login">Вход</a></li>
+                <li><a href="{% url 'expert_login' %}" class="btn-register">Вход для специалиста</a></li>
+                <li><a href="/register/" class="btn-register">Регистрация</a></li>
+            {% endif %}
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О нас</h3>
+                <p>WhiteHacker - команда профессиональных этичных хакеров, готовых защитить вас от киберугроз.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>📧 info@whitehacker.ru</p>
+                <p>📱 +7 (999) 123-45-67</p>
+            </div>
+            <div class="footer-section">
+                <h3>Быстрые ссылки</h3>
+                <a href="/experts/">Наши эксперты</a>
+                <a href="/contact/">Связаться</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 WhiteHacker. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

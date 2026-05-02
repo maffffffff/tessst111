@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Защитите себя от киберугроз</h1>
+        <p>Профессиональные белые хакеры помогут вам защититься от мошенничества и взломов</p>
+        <a href="/request-help/" class="cta-button">Получить помощь сейчас</a>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Почему выбирают нас</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Защита от взлома</h3>
+            <p>Проверка безопасности ваших систем и устранение уязвимостей</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🕵️</div>
+            <h3>Расследование инцидентов</h3>
+            <p>Помощь в расследовании случаев мошенничества и взломов</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Превентивная защита</h3>
+            <p>Проактивный поиск уязвимостей до того, как их найдут злоумышленники</p>
+        </div>
+    </div>
+</section>
+
+<section class="experts-preview">
+    <h2>Наши эксперты</h2>
+    <div class="experts-grid">
+        {% for expert in experts %}
+        <div class="expert-card">
+            <div class="expert-avatar">
+                {% if expert.photo %}
+                    <img src="{{ expert.photo.url }}" alt="{{ expert.user.get_full_name }}">
+                {% else %}
+                    <div class="avatar-placeholder">👨‍💻</div>
+                {% endif %}
+            </div>
+            <h3>{{ expert.user.get_full_name }}</h3>
+            <p class="specialty">{{ expert.get_specialty_display }}</p>
+            <p class="experience">Опыт: {{ expert.experience }} лет</p>
+            <div class="rating">⭐ {{ expert.rating }}/5.0</div>
+            <a href="/contact/" class="contact-expert">Связаться</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="testimonials">
+    <h2>Отзывы клиентов</h2>
+    <div class="testimonials-slider">
+        {% for testimonial in testimonials %}
+        <div class="testimonial-card">
+            <p class="testimonial-text">"{{ testimonial.text }}"</p>
+            <div class="testimonial-author">
+                <strong>{{ testimonial.user.get_full_name }}</strong>
+                <div class="stars">⭐ {{ testimonial.rating }}/5</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

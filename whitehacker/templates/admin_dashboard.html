@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Панель администратора{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Панель администратора</h1>
+    <div style="display:flex;gap:20px;margin:20px 0;">
+        <div style="padding:20px;background:#1a1a2e;border-radius:10px;flex:1;text-align:center;">
+            <h3>{{ experts_count }}</h3><p>Экспертов</p>
+        </div>
+        <div style="padding:20px;background:#1a1a2e;border-radius:10px;flex:1;text-align:center;">
+            <h3>{{ requests_count }}</h3><p>Запросов</p>
+        </div>
+        <div style="padding:20px;background:#1a1a2e;border-radius:10px;flex:1;text-align:center;">
+            <h3>{{ pending_count }}</h3><p>Ожидают</p>
+        </div>
+    </div>
+    <a href="{% url 'admin_experts' %}" class="btn">Управление экспертами</a>
+    <a href="{% url 'admin_help_requests' %}" class="btn">Все запросы</a>
+</div>
+{% endblock %}

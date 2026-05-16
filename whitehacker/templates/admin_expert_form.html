@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{% if expert %}Редактировать{% else %}Добавить{% endif %} эксперта{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>{% if expert %}Редактировать{% else %}Добавить{% endif %} эксперта</h1>
+    <form method="post" style="max-width:500px;">
+        {% csrf_token %}
+        <p>Функционал в разработке. Используйте <a href="/admin/">Django Admin</a> для полного управления.</p>
+        <a href="{% url 'admin_experts' %}" class="btn">Назад</a>
+    </form>
+</div>
+{% endblock %}

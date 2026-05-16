@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Управление экспертами{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Эксперты</h1>
+    <a href="{% url 'admin_expert_add' %}" class="btn" style="margin-bottom:20px;">+ Добавить эксперта</a>
+    {% for expert in experts %}
+    <div style="padding:15px;background:#1a1a2e;border-radius:10px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+            <strong>{{ expert.user.get_full_name }}</strong> — {{ expert.get_specialty_display }}
+            <br><small>Опыт: {{ expert.experience }} лет | Рейтинг: {{ expert.rating }}</small>
+        </div>
+        <div>
+            <a href="{% url 'admin_expert_edit' expert.id %}" class="btn btn-sm">Редактировать</a>
+            <a href="{% url 'admin_expert_delete' expert.id %}" class="btn btn-sm" style="background:#e74c3c;" onclick="return confirm('Удалить?')">Удалить</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>Экспертов пока нет.</p>
+    {% endfor %}
+</div>
+{% endblock %}

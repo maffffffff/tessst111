@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
@@ -104,3 +104,67 @@ def logout_view(request):
 
 def contact(request):
     return render(request, 'contact.html', {'show_contact': True})
+
+
+# --- Admin views ---
+
+@login_required
+def admin_dashboard(request):
+    if not request.user.is_superuser:
+        return redirect('home')
+    experts_count = Expert.objects.count()
+    requests_count = HelpRequest.objects.count()
+    pending_count = HelpRequest.objects.filter(status='pending').count()
+    context = {
+        'experts_count': experts_count,
+        'requests_count': requests_count,
+        'pending_count': pending_count,
+    }
+    return render(request, 'admin_dashboard.html', context)
+
+
+@login_required
+def admin_experts(request):
+    if not request.user.is_superuser:
+        return redirect('home')
+    experts = Expert.objects.all()
+    return render(request, 'admin_experts.html', {'experts': experts})
+
+
+@login_required
+def admin_expert_create(request):
+    if not request.user.is_superuser:
+        return redirect('home')
+    if request.method == 'POST':
+        messages.success(request, 'Эксперт добавлен!')
+        return redirect('admin_experts')
+    return render(request, 'admin_expert_form.html')
+
+
+@login_required
+def admin_expert_edit(request, expert_id):
+    if not request.user.is_superuser:
+        return redirect('home')
+    expert = get_object_or_404(Expert, pk=expert_id)
+    if request.method == 'POST':
+        messages.success(request, 'Эксперт обновлён!')
+        return redirect('admin_experts')
+    return render(request, 'admin_expert_form.html', {'expert': expert})
+
+
+@login_required
+def admin_expert_delete(request, expert_id):
+    if not request.user.is_superuser:
+        return redirect('home')
+    expert = get_object_or_404(Expert, pk=expert_id)
+    expert.delete()
+    messages.success(request, 'Эксперт удалён!')
+    return redirect('admin_experts')
+
+
+@login_required
+def admin_help_requests(request):
+    if not request.user.is_superuser:
+        return redirect('home')
+    help_requests = HelpRequest.objects.all().order_by('-created_at')
+    return render(request, 'admin_help_requests.html', {'help_requests': help_requests})

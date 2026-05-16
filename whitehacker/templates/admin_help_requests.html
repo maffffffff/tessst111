@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Все запросы{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Запросы на помощь</h1>
+    {% for req in help_requests %}
+    <div style="padding:15px;background:#1a1a2e;border-radius:10px;margin:10px 0;">
+        <strong>{{ req.title }}</strong> — <span style="color:#00d4ff;">{{ req.get_status_display }}</span>
+        <br><small>{{ req.user.username }} | {{ req.get_urgency_display }} | {{ req.created_at|date:"d.m.Y H:i" }}</small>
+        <p style="margin-top:8px;">{{ req.description|truncatewords:30 }}</p>
+    </div>
+    {% empty %}
+    <p>Запросов пока нет.</p>
+    {% endfor %}
+</div>
+{% endblock %}

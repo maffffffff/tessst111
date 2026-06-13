@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="dashboard">
+
+        <!-- Часы -->
+        <div class="widget clock-widget">
+            <h2>Время</h2>
+
+            <div id="clock">
+                19:42:33
+            </div>
+
+            <div id="date">
+                7 июня 2026
+            </div>
+        </div>
+
+        <!-- Погода -->
+        <div class="widget weather-widget">
+            <h2>Погода</h2>
+
+            <div class="weather-content">
+                <img
+                    width="300"
+                    height="200"
+                    id="weather-icon"
+                    src="https://24.kg/files/media/333/333604.png"
+                    alt="Погода"
+                >
+
+                <div>
+                    <div id="temperature">
+                        26°C
+                    </div>
+
+                    <div id="weather-desc">
+                        Ясно
+                    </div>
+
+                    <div id="wind">
+                        Ветер: 8 км/ч
+                    </div>
+
+                    <div id="humidity">
+                        Влажность: 62%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Курсы валют -->
+        <div class="widget">
+            <h2>Курсы валют</h2>
+
+            <div class="currency-item">
+                🇺🇸 USD
+                <span id="usd-rate">87.45</span>
+            </div>
+
+            <div class="currency-item">
+                🇪🇺 EUR
+                <span id="eur-rate">95.12</span>
+            </div>
+
+            <div class="currency-item">
+                🇷🇺 RUB
+                <span id="rub-rate">1.08</span>
+            </div>
+        </div>
+
+        <!-- Новости -->
+        <div class="widget">
+            <h2>Новости</h2>
+
+            <div id="news">
+
+                <div class="news-card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP4U2JdbKz0bfvTUfc9FV5sl1uc3KHXehKwA&s"
+                        alt="Новость"
+                        class="news-image"
+                    >
+
+                    <h3>Стали известны причины отключения света в Бишкеке и пригороде</h3>
+<br>
+                    <p>
+                        Причиной масштабного отключения электроэнергии в Бишкеке стало повреждение высоковольтной линии электропередачи 110 киловатт «Парковая» — «Ала-Арча».
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- График температуры -->
+        <div class="widget widget--large">
+            <h2>Температура на неделю</h2>
+
+            <canvas id="weatherChart"></canvas>
+
+            <div class="weather-summary">
+                Максимум:
+                <span id="max-temp">29°C</span>
+
+                <br>
+
+                Минимум:
+                <span id="min-temp">18°C</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>
